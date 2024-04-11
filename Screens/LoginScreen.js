@@ -85,7 +85,7 @@ export function LoginScreen (props) {
   return (
     <View style={styles.container}>
       <View style={styles.TopView}>
-        {<Image style={styles.ImageStyle} source={require('../assets/logoCoffee.png')} /> }
+        {<Image style={styles.ImageStyle} source={require('../assets/logo.png')} /> }
       </View>
 
       <View style={styles.BottomView}>
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   ImageStyle: {
-    width: 200,
+    width: 250,
     height: 250,
     resizeMode: 'contain',
   },

@@ -1,24 +1,48 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, TextInput } from 'react-native'
-import React, {useState} from 'react'
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity, TextInput } from 'react-native'
+import React, {useContext, useEffect, useState} from 'react'
+
 
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState('');
   
-
+  const [post,setPost] = useState([])
+  useEffect(() => {
+    fetch('http://localhost:3000/db')
+      //.then((re) => re.json())
+      .then((re) => {
+        setPost(re.db);
+        console.log(re.db);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Heading}>Coffee House</Text>
+      <Text style={styles.Heading}>LaviaWigs</Text>
       <TextInput
             style={styles.input}
-            placeholder="Find your favourite coffee..."
+            placeholder="Search..."
             placeholderTextColor="#000"
             value={searchInput}
             onChangeText={(val) => setSearchInput(val)}
           />
         <View style={styles.mainPostView}>
-
+          {post.length < 1?
+            <ActivityIndicator size={"large"} color={"#AF005F"}/>
+            : <FlatList>
+              data={post},
+              keyExtractor={({item,index}) => {return item.id.toFixed()}}
+              renderItem={({item,index}) => (
+                <View style={styles.postView}>
+                  <Text style={styles.text}>{item.name}</Text>
+                  <Text style={styles.text}>{item.price}</Text>
+                </View>
+              )}
+            </FlatList>
+          }
         </View>
     </View>
   )
@@ -50,5 +74,8 @@ const styles = StyleSheet.create({
   },
   mainPostView: {
     width: '90%',
+  },
+  postView: {
+    width: '80%',
   }
 })

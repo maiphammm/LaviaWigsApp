@@ -1,0 +1,41 @@
+{
+    "db": [
+        {
+            "id": "W1",
+            "name": "Strawberry red wig",
+            "price": "890 AUD",
+            "cap": "5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
+            "length": "20 inches - 50cm",
+            "weight": "200g",
+            "density": "180%",
+            "handmade": "yes",
+            "quantity": "1"
+            
+        },
+        {
+            "id": "W2",
+            "name": "Trending milk tea bob wig",
+            "price": "990 AUD",
+            "description": "100% remy hair - finest human hair, hand-tied monofilament cap",
+            "cap": "5 x 5 inches (12 X 12 cm), single middle hair line, hand-tied monofilament silk 3D cap",
+            "length": "20 inches - 50cm",
+            "weight": "200g",
+            "density": "180%",
+            "handmade": "yes",
+            "quantity": "1"
+            
+        },
+        {
+            "id": "W3",
+            "name": "Honeycomb blonde Balayage",
+            "price": "1050 AUD",
+            "description": "real hair wig hot hair trend, 18 inches (45 cm), 200% density, hand-tied monofilament cap",
+            "length": "20 inches - 50cm",
+            "weight": "200g",
+            "density": "200%",
+            "handmade": "yes",
+            "quantity": "1"
+            
+        }
+    ]
+}

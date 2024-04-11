@@ -85,10 +85,10 @@ export default function App() {
         
                     if (route.name === 'Home') {
                       iconName = focused
-                        ? 'ios-home'
-                        : 'ios-home-outline';
+                        ? 'storefront'
+                        : 'storefront-outline';
                     } else if (route.name === 'Product') {
-                      iconName = focused ? 'cafe' : 'cafe-outline';
+                      iconName = focused ? 'sparkles' : 'sparkles-outline';
                     } else if (route.name === 'Cart') {
                       iconName = focused? 'cart' : 'cart-outline';
                     }

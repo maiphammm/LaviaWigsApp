@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, TextInput, Image } from 'react-native';
-const WigDatabse = require("../../Api/db.json");
+import { StyleSheet, Text, View, FlatList,TouchableOpacity, ActivityIndicator, TextInput, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import ProductView from './ProductView';
 
-
+const wigDB = require("../../Api/db.json");
 
 const Home = () => {
+  const navigation = useNavigation();
   const [searchInput, setSearchInput] = useState('');
   const [post, setPost] = useState([]);
 
   useEffect(() => {
     try {
-      setPost(WigDatabse.db);
+      setPost(wigDB.db);
     } catch (error) {
       console.error('Error setting data:', error);
     }
   }, []);
 
+
+  
   const imagePaths = {
     "balayage_wig.png": require('../../assets/wig_assets/balayage_wig.png'),
     "natural_black_wig.png": require('../../assets/wig_assets/natural_black_wig.png'),
@@ -41,15 +45,19 @@ const Home = () => {
             data={post}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item, index }) => {
+              console.log("Navigating to ProductView with params:", navigation)
               return (
-                <View style={styles.postView}>
-                  <Image source={imagePaths[item.image]} style={styles.image} />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.text}>{item.name}</Text>
-                    <Text style={styles.text}>{item.price}</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('ProductView', { wigDB: item, imagePath: imagePaths[item.image] })}>
+                  <View style={styles.postView}>
+                    <Image source={imagePaths[item.image]} style={styles.image} />
+                    <View style={styles.textContainer}>
+                      <Text style={styles.text}>{item.name}</Text>
+                      <Text style={styles.text}>{item.price}</Text>
+                    </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               );
+
             }}
           />
         }

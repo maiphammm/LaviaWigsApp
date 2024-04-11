@@ -1,45 +1,67 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity, TextInput } from 'react-native'
-import React, {useContext, useEffect, useState} from 'react'
+import React from 'react';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 
-const Cart = () => {
+const Cart = ({ route, navigation }) => {
+  // Extract cartItems from route params
+  const { cartItems } = route.params;
+
+  // Calculate total price of all items in the cart
+  const totalPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.Heading}>Your cart</Text>
-      
+      <FlatList
+        data={cartItems}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemPrice}>{item.totalPrice}</Text>
+          </View>
+        )}
+      />
+      <Text style={styles.totalPrice}>Total Price: {totalPrice}</Text>
+      <TouchableOpacity style={styles.checkoutButton} onPress={() => navigation.navigate('Checkout')}>
+        <Text style={styles.checkoutButtonText}>Checkout</Text>
+      </TouchableOpacity>
     </View>
-  )
-}
-
-export default Cart
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    padding: 20,
   },
-  Heading: {
-    fontSize: 20,
-    marginTop: 60,
-    marginLeft: 15,
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  itemName: {
+    fontSize: 18,
+  },
+  itemPrice: {
+    fontSize: 18,
     fontWeight: 'bold',
   },
-  input: {
-    width: '90%',
-    height: 39,
-    borderColor: '#AF005F',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingLeft: 15,
+  totalPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
     marginTop: 20,
-    color: '#000',
-    backgroundColor: '#EBEBEB',
   },
-  mainPostView: {
+  checkoutButton: {
+    backgroundColor: '#AF005F',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
     marginTop: 20,
-    width: '90%',
   },
-  postView: {
-    marginTop: 20,
-    width: '80%',
-  }
-})
+  checkoutButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+});
+
+export default Cart;

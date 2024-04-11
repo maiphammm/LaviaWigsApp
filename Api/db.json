@@ -9,7 +9,8 @@
             "weight": "200g",
             "density": "180%",
             "handmade": "yes",
-            "quantity": "1"
+            "quantity": "1",
+            "image": "../assets/wig_assets/red_wig.png"
             
         },
         {
@@ -22,7 +23,8 @@
             "weight": "200g",
             "density": "180%",
             "handmade": "yes",
-            "quantity": "1"
+            "quantity": "1",
+            "image": "require('../assets/wig_assets/tea_bob_wig.png')"
             
         },
         {
@@ -30,11 +32,27 @@
             "name": "Honeycomb blonde Balayage",
             "price": "1050 AUD",
             "description": "real hair wig hot hair trend, 18 inches (45 cm), 200% density, hand-tied monofilament cap",
+            "cap": "5 x 5 inches (12 X 12 cm), single middle hair line, hand-tied monofilament silk 3D cap",
             "length": "20 inches - 50cm",
             "weight": "200g",
             "density": "200%",
             "handmade": "yes",
-            "quantity": "1"
+            "quantity": "1",
+            "image": "require('../assets/wig_assets/balayage_wig.png')"
+            
+        },
+        {
+            "id": "W4",
+            "name": "Natural black wig",
+            "price": "900 AUD",
+            "description": "50cm 200% density, hand-tied monofilament cap, 100% remy hair - finest human hair ",
+            "cap": "5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
+            "length": "20 inches - 50cm",
+            "weight": "200g",
+            "density": "200%",
+            "handmade": "yes",
+            "quantity": "1",
+            "image": "require('../assets/wig_assets/natural_black_wig.png')"
             
         }
     ]

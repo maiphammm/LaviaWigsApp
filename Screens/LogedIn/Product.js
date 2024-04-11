@@ -1,32 +1,33 @@
-import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, TouchableOpacity, TextInput } from 'react-native'
 import React, {useContext, useEffect, useState} from 'react'
-
+const WigDatabse = require("../../Api/db.json");
 
 
 
 
 const Product = () => {
-  //const productDb = useContext(ProductDb)
+  const [searchInput, setSearchInput] = useState('');
+  const [post,setPost] = useState([])
   
+  useEffect(() => {
+    try {
+      setPost(WigDatabse.db);
+    } catch (error) {
+      console.error('Error setting data:', error);
+    }
+  }, []);
 
   return (
-    // <View style={styles.container}>
-    //   <Text style={styles.title}>All products</Text>
-    //   <ScrollView contentContainerStyle={styles.scrollView}>
-    //     <FlatList>
-    //       productDb={productDb},
-    //       renderItem={({item}) => {
-            
-    //           <View style={styles.mainPostView}>
-    //             <Text style={styles.text}>{item.name}</Text>
-    //             <Text style={styles.text}>{item.price}</Text>
-    //           </View>
-          
-    //       }}
-    //     </FlatList>
-    //   </ScrollView>
-    // </View>
-    <View></View>
+    <View style={styles.container}>
+      <Text style={styles.Heading}>LaviaWigs</Text>
+      <TextInput
+            style={styles.input}
+            placeholder="Search..."
+            placeholderTextColor="#000"
+            value={searchInput}
+            onChangeText={(val) => setSearchInput(val)}
+          />
+    </View>
   )
 }
 

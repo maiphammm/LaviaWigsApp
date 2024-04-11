@@ -1,35 +1,30 @@
-import { StyleSheet,Image,ScrollView, Text, View, FlatList, ActivityIndicator, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
-import React, {useContext, useEffect, useState} from 'react'
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator, TextInput, Image } from 'react-native';
 const WigDatabse = require("../../Api/db.json");
+
 
 
 const Home = () => {
   const [searchInput, setSearchInput] = useState('');
-  
-  const [post,setPost] = useState([])
-  // useEffect(() => {
-  //   fetch('http://192.168.88.121/db')
-  //     //.then((re) => re.json())
-  //     .then((re) => {
-  //       setPost(re.db);
-  //       console.log(re.db);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
+  const [post, setPost] = useState([]);
 
   useEffect(() => {
     try {
       setPost(WigDatabse.db);
-      //console.log(WigDatabse.db)
     } catch (error) {
       console.error('Error setting data:', error);
     }
   }, []);
 
+  const imagePaths = {
+    "balayage_wig.png": require('../../assets/wig_assets/balayage_wig.png'),
+    "natural_black_wig.png": require('../../assets/wig_assets/natural_black_wig.png'),
+    "tea_bob_wig.png": require('../../assets/wig_assets/tea_bob_wig.png'),
+    "red_wig.png": require('../../assets/wig_assets/red_wig.png'),
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.Heading}>LaviaWigs</Text>
       <TextInput
         style={styles.input}
@@ -46,12 +41,9 @@ const Home = () => {
             data={post}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item, index }) => {
-              console.log('Image URL:', item.image); // Check the image URL/URI in the console
               return (
                 <View style={styles.postView}>
-                  <Image source={{ uri: item.image }} style={styles.image}   
-                  onError={(error) => console.error('Image loading error:', error)}
-                  />
+                  <Image source={imagePaths[item.image]} style={styles.image} />
                   <View style={styles.textContainer}>
                     <Text style={styles.text}>{item.name}</Text>
                     <Text style={styles.text}>{item.price}</Text>
@@ -62,11 +54,11 @@ const Home = () => {
           />
         }
       </View>
-    </SafeAreaView>
-  )
-}
+    </View>
+  );
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -110,7 +102,7 @@ const styles = StyleSheet.create({
     height: 120,
     margin: 8,
     borderRadius: 8
-},
+  },
   textContainer: {
     flex: 1,
     padding: 10,
@@ -119,4 +111,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-})
+});

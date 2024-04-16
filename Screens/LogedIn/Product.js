@@ -23,7 +23,7 @@ const Product = ({ route, navigation }) => {
 
     // Navigate to the 'Cart' screen and pass the cartItems as a parameter
     navigation.navigate('Cart', { cartItems }); 
-};
+  };
 
   return (
     <View style={styles.container}>

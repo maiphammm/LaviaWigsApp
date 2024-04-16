@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import React from 'react'
 import { useContext, useState, useEffect } from 'react'
-import { signOut } from 'firebase/auth'
+import { signOut, getAuth } from 'firebase/auth'
 import { doc, getDoc } from "firebase/firestore"
 
 import { AuthContext } from '../../contexts/AuthContext'
@@ -62,7 +62,7 @@ export function Profile( props ) {
         <Pressable 
           style={styles.button} 
           onPress={ () => {
-            signOut( Auth ).then(()=> {})
+            signOut( getAuth() ).then(()=> {})
           }
         }>
           <Text style={ styles.button.text }>Sign out</Text>

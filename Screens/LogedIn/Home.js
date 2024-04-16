@@ -45,9 +45,9 @@ const Home = () => {
             data={post}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item, index }) => {
-              console.log("Navigating to ProductView with params:", navigation)
+              //console.log("Navigating to ProductView with params:", navigation)
               return (
-                <TouchableOpacity onPress={() => navigation.navigate('ProductView', { wigDB: item, imagePath: imagePaths[item.image] })}>
+                <TouchableOpacity onPress={() => navigation.navigate('Product', { wigDB: item, imagePath: imagePaths[item.image] })}>
                   <View style={styles.postView}>
                     <Image source={imagePaths[item.image]} style={styles.image} />
                     <View style={styles.textContainer}>

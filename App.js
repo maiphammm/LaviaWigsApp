@@ -12,7 +12,7 @@ import{RegisterScreen} from './Screens/RegisterScreen';
 import Home from './Screens/LogedIn/Home';
 import Product from './Screens/LogedIn/Product';
 import {Profile} from './Screens/LogedIn/Profile';
-import Cart from './Screens/LogedIn/Cart';
+import CartView from './Screens/LogedIn/CartView';
 import ProductView from './Screens/LogedIn/ProductView';
 //import contexts
 import { AuthContext } from './contexts/AuthContext'
@@ -88,7 +88,7 @@ export default function App() {
                       iconName = focused
                         ? 'storefront'
                         : 'storefront-outline';
-                    } else if (route.name === 'ProductView') {
+                    } else if (route.name === 'Product') {
                       iconName = focused ? 'sparkles' : 'sparkles-outline';
                     } else if (route.name === 'Cart') {
                       iconName = focused? 'cart' : 'cart-outline';
@@ -112,9 +112,9 @@ export default function App() {
                 {/* <Tab.Screen name="Product" options={{ headerShown: false }}>
                   {(props) => <Product />}
                 </Tab.Screen> */}
-                <Tab.Screen name="ProductView" component={ProductView} options={{ headerShown: false }} />
-                <Tab.Screen name="Cart" options={{ headerShown: false }}>
-                  {(props) => <Cart />}
+                <Tab.Screen name="Product" component={ProductView} options={{ headerShown: false }} />
+                <Tab.Screen name="Cart" component={CartView} options={{ headerShown: false }}>
+                  {/* {(props) => <Cart />} */}
                 </Tab.Screen>
                 <Tab.Screen name="Profile" options={{ headerShown: false }}>
                   {(props) => <Profile />}

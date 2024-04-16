@@ -1,26 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react-native';
 
-const Cart = ({ route, navigation }) => {
-  // Extract cartItems from route params
+const CartView = ({ route, navigation }) => {
   const { cartItems } = route.params;
-
-  // Calculate total price of all items in the cart
-  const totalPrice = cartItems.reduce((total, item) => total + item.totalPrice, 0);
-
+  const { totalPrice } = route.params;
+  
   return (
     <View style={styles.container}>
       <FlatList
         data={cartItems}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => 
+        (
           <View style={styles.itemContainer}>
             <Text style={styles.itemName}>{item.name}</Text>
-            <Text style={styles.itemPrice}>{item.totalPrice}</Text>
+            <Text style={styles.itemPrice}>${item.totalItemPrice.toFixed(2)}</Text>
           </View>
-        )}
+        )
+      }
       />
-      <Text style={styles.totalPrice}>Total Price: {totalPrice}</Text>
+
+      <Text style={styles.totalPrice}>Total Price: {totalPrice ? totalPrice.toFixed(2) : '0.00 AUD'}</Text>
       <TouchableOpacity style={styles.checkoutButton} onPress={() => navigation.navigate('Checkout')}>
         <Text style={styles.checkoutButtonText}>Checkout</Text>
       </TouchableOpacity>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
+    alignSelf: 'flex-end',
   },
   checkoutButton: {
     backgroundColor: '#AF005F',
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
+    alignSelf: 'center',
   },
 });
 
-export default Cart;
+export default CartView;

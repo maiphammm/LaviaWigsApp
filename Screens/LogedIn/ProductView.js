@@ -3,14 +3,17 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput } from 'reac
 import Icon from 'react-native-vector-icons/Feather';
 
 const ProductView = ({ route, navigation }) => {
+  // Destructuring the wigDB and imagePath from route params
   const { wigDB, imagePath } = route.params;
+
+  // State for managing quantity and cart items
   const [quantity, setQuantity] = useState(1);
   const [cartItems, setCartItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0); 
 
   const handleAddToCart = () => {
     // Create a new item object with the properties from wigDB, along with quantity and totalPrice
-    const newItem = { ...wigDB, quantity, totalPrice: wigDB.price * quantity };
+    const newItem = { ...wigDB, quantity, totalItemPrice: wigDB.price * quantity };
 
     // Update the totalItems count by adding the quantity of the new item
     setTotalItems(totalItems + quantity); 
@@ -22,7 +25,7 @@ const ProductView = ({ route, navigation }) => {
     setQuantity(1); 
 
     // Navigate to the 'Cart' screen and pass the cartItems as a parameter
-    navigation.navigate('Cart', { cartItems });
+    navigation.navigate('Cart', { cartItems: cartItems });
   };
 
   return (
@@ -36,23 +39,23 @@ const ProductView = ({ route, navigation }) => {
         </TouchableOpacity> */}
         <Image source={imagePath ? imagePath : { uri: wigDB.image }} style={styles.image} resizeMode="cover" />
         <View style={styles.detailsContainer}>
-            <Text style={styles.name}>{wigDB.name}</Text>
-            <Text style={styles.price}>{wigDB.price}</Text>
-            <TextInput
-            style={styles.quantityInput}
-            placeholder="Quantity"
-            keyboardType="numeric"
-            value={quantity.toString()}
-            onChangeText={(text) => setQuantity(parseInt(text) || 1)}
-            />
-            <TouchableOpacity onPress={handleAddToCart} style={styles.addToCartButton}>
-            <Text style={styles.addToCartButtonText}>Add to Cart ({totalItems})</Text>
-            </TouchableOpacity>
-            <Text style={styles.text}>{wigDB.cap}</Text>
-            <Text style={styles.text}>{wigDB.length}</Text>
-            <Text style={styles.text}>{wigDB.weight}</Text>
-            <Text style={styles.text}>{wigDB.density}</Text>
-            <Text style={styles.text}>{wigDB.handmade}</Text>
+          <Text style={styles.name}>{wigDB.name}</Text>
+          <Text style={styles.price}>{wigDB.price}</Text>
+          <TextInput
+          style={styles.quantityInput}
+          placeholder="Quantity"
+          keyboardType="numeric"
+          value={quantity.toString()}
+          onChangeText={(text) => setQuantity(parseInt(text) || 1)}
+          />
+          <TouchableOpacity onPress={handleAddToCart} style={styles.addToCartButton}>
+          <Text style={styles.addToCartButtonText}>Add to Cart ({totalItems})</Text>
+          </TouchableOpacity>
+          <Text style={styles.text}>{wigDB.cap}</Text>
+          <Text style={styles.text}>{wigDB.length}</Text>
+          <Text style={styles.text}>{wigDB.weight}</Text>
+          <Text style={styles.text}>{wigDB.density}</Text>
+          <Text style={styles.text}>{wigDB.handmade}</Text>
         </View>
       </View>
     </View>

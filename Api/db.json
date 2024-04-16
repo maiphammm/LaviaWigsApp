@@ -10,7 +10,7 @@
             "weight": "Weight: 200g",
             "density": "Density: 180%",
             "handmade": "Handmade: yes",
-            "quantity": "1",
+            "quantity": "10",
             "image": "red_wig.png"
             
         },
@@ -24,7 +24,7 @@
             "weight": "Weight: 200g",
             "density": "Density: 180%",
             "handmade": "Handmade: yes",
-            "quantity": "1",
+            "quantity": "10",
             "image": "tea_bob_wig.png"
             
         },
@@ -38,7 +38,7 @@
             "weight": "Weight: 200g",
             "density": "Density: 200%",
             "handmade": "Handmade: yes",
-            "quantity": "1",
+            "quantity": "10",
             "image": "balayage_wig.png"
             
         },
@@ -52,7 +52,7 @@
             "weight": "Weight: 200g",
             "density": "Density: 200%",
             "handmade": "Handmade: yes",
-            "quantity": "1",
+            "quantity": "10",
             "image": "natural_black_wig.png"
             
         }

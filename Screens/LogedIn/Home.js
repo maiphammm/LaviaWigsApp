@@ -52,7 +52,7 @@ const Home = () => {
                     <Image source={imagePaths[item.image]} style={styles.image} />
                     <View style={styles.textContainer}>
                       <Text style={styles.text}>{item.name}</Text>
-                      <Text style={styles.text}>{item.price}</Text>
+                      <Text style={styles.text}>AU$ {item.price}</Text>
                     </View>
                   </View>
                 </TouchableOpacity>

@@ -30,6 +30,7 @@ import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage } from "firebase/storage";
+import PaymentScreen from './Screens/LogedIn/PaymentGateway/PaymentScreen';
 
 // // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
@@ -38,11 +39,19 @@ import { getStorage } from "firebase/storage";
 
 //App start
 
+
+//stripe payment integration
+import { StripeProvider } from '@stripe/stripe-react-native';
+
+
 export default function App() {
   const FBapp = initializeApp(firebaseConfig)
   const FBauth = getAuth(FBapp)
   const FBdb = getFirestore(FBapp)
   const FBstorage = getStorage(FBapp)
+const Publishable_key = "pk_test_51P6WBnP7DYkfCAsDC8IhYTQcelYpc3kCMpduGO36a6BMNeOOBzqsjpLrSyxDNrKqbVlMtNbPO1QCwrohm5XI6Qpb00V3yzarYJ"
+
+console.log("push:" , Publishable_key)
 
   // state
   const [auth, setAuth] = useState();
@@ -75,10 +84,16 @@ export default function App() {
 
   if (isLogedIn == true) {
     return (
+
       <AuthContext.Provider value={FBauth}>
         <DbContext.Provider value={FBdb}>
           <StorageContext.Provider value={FBstorage}>
             <NavigationContainer>
+            <StripeProvider
+              publishableKey={Publishable_key}
+              merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+
+            >
               <Tab.Navigator initialRouteName="Home"
                 screenOptions={({ route }) => ({
                   tabBarIcon: ({ focused, color, size }) => {
@@ -113,6 +128,10 @@ export default function App() {
                   {(props) => <Product />}
                 </Tab.Screen> */}
                 <Tab.Screen name="Product" component={ProductView} options={{ headerShown: false }} />
+             
+                
+                <Tab.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }} />
+               
                 <Tab.Screen name="Cart" component={CartView} options={{ headerShown: false }}>
                   {/* {(props) => <Cart />} */}
                 </Tab.Screen>
@@ -120,6 +139,7 @@ export default function App() {
                   {(props) => <Profile />}
                 </Tab.Screen>
               </Tab.Navigator>
+              </StripeProvider>
             </NavigationContainer>
           </StorageContext.Provider>
         </DbContext.Provider>
@@ -136,8 +156,10 @@ export default function App() {
                   {(props) => <LoginScreen handler={Login} />}
                 </Stack.Screen>
                 <Stack.Screen name="Register" options={{ headerShown: false }}>
-                  {(props) => <RegisterScreen />}
-                </Stack.Screen>
+                  {(props) => <RegisterScreen />}               
+                   </Stack.Screen>
+
+
               </Stack.Navigator>
             </NavigationContainer>
           </StorageContext.Provider>

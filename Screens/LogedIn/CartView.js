@@ -1,92 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+
 const CartView = ({ route, navigation }) => {
   const cartItems = route?.params?.cartItems || [];
   const totalItems = route?.params?.totalItems || 0;
   const totalPrice = route?.params?.totalPrice || 0;
   const [cartItemsState, setCartItemsState] = useState(cartItems);
   const [totalPriceState, setTotalPriceState] = useState(totalPrice);
+  const [totalQuantity, setTotalQuantity] = useState(totalItems);
 
-  //increase items by quantity
+  // Function to update total price and total quantity when cart items change
+  useEffect(() => {
+    updateTotalPriceAndQuantity(cartItemsState);
+  }, [cartItemsState]);
+
   const increaseQuantity = (itemId) => {
-    const updatedCartItems = [...cartItemsState];
-    const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
-    if (selectedItemIndex !== -1) {
-      // If the item exists, increase its quantity
-      updatedCartItems[selectedItemIndex].quantity += 1;
-      updatedCartItems[selectedItemIndex].totalItemPrice = updatedCartItems[selectedItemIndex].price * updatedCartItems[selectedItemIndex].quantity;
-    }
-    setCartItemsState(updatedCartItems);
-    updateTotalPrice(updatedCartItems);
-  };
-
-
-  //reduce items by quantity
-  const reduceQuantity = (itemId) => {
-    const updatedCartItems = [...cartItemsState];
-    const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
-    if (selectedItemIndex !== -1) {
-      // If the item exists and quantity is greater than 1, decrease its quantity
-      if (updatedCartItems[selectedItemIndex].quantity > 1) {
-        updatedCartItems[selectedItemIndex].quantity -= 1;
-        updatedCartItems[selectedItemIndex].totalItemPrice = updatedCartItems[selectedItemIndex].price * updatedCartItems[selectedItemIndex].quantity;
+    const updatedCartItems = cartItemsState.map(item => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+          totalItemPrice: item.price * (item.quantity + 1)
+        };
       }
-    }
+      return item;
+    });
+  
     setCartItemsState(updatedCartItems);
-    updateTotalPrice(updatedCartItems);
   };
 
-  //remove item from cart
+  const reduceQuantity = (itemId) => {
+    const updatedCartItems = cartItemsState.map(item => {
+      if (item.id === itemId && item.quantity > 1) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+          totalItemPrice: item.price * (item.quantity - 1)
+        };
+      }
+      return item;
+    });
+
+    setCartItemsState(updatedCartItems);
+  };
+
   const removeItem = (itemId) => {
     const updatedCartItems = cartItemsState.filter(item => item.id !== itemId);
     setCartItemsState(updatedCartItems);
   };
+  
 
-  //update total price
-  const updateTotalPrice = (updatedCartItems) => {
+  const updateTotalPriceAndQuantity = (updatedCartItems) => {
     const newTotalPrice = updatedCartItems.reduce((total, item) => total + item.totalItemPrice, 0);
+    const newTotalQuantity = updatedCartItems.reduce((total, item) => total + item.quantity, 0);
     setTotalPriceState(newTotalPrice);
+    setTotalQuantity(newTotalQuantity);
   };
   
   return (
     <View style={styles.container}>
-      <Text style={styles.Heading}>Cart ({totalItems})</Text>
+      <Text style={styles.heading}>Cart ({totalQuantity})</Text>
       {cartItems && cartItems.length > 0 ? ( 
-      <FlatList
-        data={cartItems}
-        keyExtractor={(item, index) => index.toString()}
-        //keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item, index }) => (
-          <View style={styles.itemContainer}>
-            <View style={styles.column1}>
-              <Text>{item.name}</Text>
+        <FlatList
+          data={cartItems}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.itemContainer}>
+              <View style={styles.column1}>
+                <Text>{item.name}</Text>
+              </View>
+              <View style={styles.column2}>
+                <Text>AU$ {item.price}</Text>
+              </View>
+              <View style={styles.column3}>
+                <TouchableOpacity style={styles.quantityButton} onPress={() => increaseQuantity(item.id)}>
+                  <Text>+</Text>
+                </TouchableOpacity>
+                <Text>{item.quantity}</Text>
+                <TouchableOpacity style={styles.quantityButton} onPress={() => reduceQuantity(item.id)}>
+                  <Text>-</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(item.id)}>
+                  <Text style={styles.removeButtonText}>X</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.column2}>
-              <Text>AU$ {item.price}</Text>
-            </View>
-            <View style={styles.column3}>
-              <TouchableOpacity style={styles.quantityButton} onPress={() => increaseQuantity(index)}>
-                <Text>+</Text>
-              </TouchableOpacity>
-              <Text>{item.quantity}</Text>
-              <TouchableOpacity style={styles.quantityButton} onPress={() => reduceQuantity(index)}>
-                <Text>-</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(item.id)}>
-                <Text style={styles.removeButtonText}>X</Text>
-              </TouchableOpacity>
-            </View>
-            
-          </View>
-        )}
-      /> ) : (
+          )}
+        /> 
+      ) : (
         <Text style={styles.noItemText}>No items in the cart</Text>
       )}
       <View style={styles.footer}>
-        <Text style={styles.totalItem}>Total Items: {totalItems}</Text>
-        <Text style={styles.totalPrice}>Total Price: AU$ {totalPrice.toFixed(2)}</Text>
-        {/* <Text>Total Price: {totalPriceState}</Text> */}
-        <TouchableOpacity style={styles.checkoutButton} onPress={() => navigation.navigate('Checkout')}>
+        <Text style={styles.totalItem}>Total Items: {totalQuantity}</Text>
+        <Text style={styles.totalPrice}>Total Price: AU$ {totalPriceState.toFixed(2)}</Text>
+        <TouchableOpacity 
+          style={styles.checkoutButton} 
+          onPress={() => navigation.navigate('PaymentScreen', { totalPrice: totalPriceState })}>
           <Text style={styles.checkoutButtonText}>Checkout</Text>
         </TouchableOpacity>
       </View>
@@ -110,9 +119,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    
   },
-  Heading: {
+  heading: {
     fontSize: 25,
     marginTop: 30,
     marginBottom: 20,
@@ -124,13 +132,6 @@ const styles = StyleSheet.create({
     borderTopColor: '#ccc',
     paddingTop: 10,
     alignItems: 'center',
-  },
-  itemName: {
-    fontSize: 15,
-  },
-  itemPrice: {
-    fontSize: 15,
-    fontWeight: 'bold',
   },
   totalItem:{
     fontSize: 15,

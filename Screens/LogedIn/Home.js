@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList,TouchableOpacity, ActivityIndicator, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList,TouchableOpacity, ActivityIndicator, TextInput, Image, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ProductView from './ProductView';
 
@@ -57,7 +57,6 @@ const Home = () => {
                   </View>
                 </TouchableOpacity>
               );
-
             }}
           />
         }

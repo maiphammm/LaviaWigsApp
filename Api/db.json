@@ -55,6 +55,34 @@
             "quantity": "10",
             "image": "natural_black_wig.png"
             
+        },
+        {
+            "id": "W5",
+            "name": "Test Natural black wig",
+            "price": "900",
+            "description": "50cm 200% density, hand-tied monofilament cap, 100% remy hair - finest human hair ",
+            "cap": "Cap: 5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
+            "length": "Length: 20 inches - 50cm",
+            "weight": "Weight: 200g",
+            "density": "Density: 200%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "natural_black_wig.png"
+            
+        },
+        {
+            "id": "W6",
+            "name": "Last Natural black wig",
+            "price": "900",
+            "description": "50cm 200% density, hand-tied monofilament cap, 100% remy hair - finest human hair ",
+            "cap": "Cap: 5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
+            "length": "Length: 20 inches - 50cm",
+            "weight": "Weight: 200g",
+            "density": "Density: 200%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "natural_black_wig.png"
+            
         }
     ]
 }

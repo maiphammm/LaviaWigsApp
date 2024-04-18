@@ -14,8 +14,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseConfig } from '../Firebase/config'
 
 export function LoginScreen (props) {
-  const [email, setEmailAddress] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmailAddress] = useState('login@gmail.com');
+  const [password, setPassword] = useState('login123');
   const [errorMessage, setErrMessage] = useState('');
   const [displayFormErr, setDisplayFormErr] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

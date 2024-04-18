@@ -12,7 +12,7 @@ const PaymentScreen = ({route}) => {
     const [loading, setLoading] = useState(false);
     const [subcribeAmount, setSubcribeAmount] = useState("20");
     const [showModal, setShowModal] = useState(false);
-const [TotalAmount, setAmount] = useState(0);  // what you get on params passs into it.
+    const [TotalAmount, setAmount] = useState(0);  // what you get on params passs into it.
 
 
     const fetchCardDetail = (cardDetail) => {

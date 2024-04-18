@@ -10,7 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginScreen } from './Screens/LoginScreen';
 import{RegisterScreen} from './Screens/RegisterScreen';
 import Home from './Screens/LogedIn/Home';
-import Product from './Screens/LogedIn/Product';
+//import Product from './Screens/LogedIn/Product';
 import {Profile} from './Screens/LogedIn/Profile';
 import CartView from './Screens/LogedIn/CartView';
 import ProductView from './Screens/LogedIn/ProductView';

@@ -7,26 +7,30 @@ const CartView = ({ route, navigation }) => {
   const [cartItemsState, setCartItemsState] = useState(cartItems);
   const [totalPriceState, setTotalPriceState] = useState(totalPrice);
 
-  const increaseQuantity = (itemIndex) => {
+  const increaseQuantity = (itemId) => {
     const updatedCartItems = [...cartItemsState];
-    const selectedItem = updatedCartItems[itemIndex];
-    if (selectedItem) {
-      selectedItem.quantity += 1;
-      selectedItem.totalItemPrice = selectedItem.price * selectedItem.quantity;
-      setCartItemsState(updatedCartItems);
-      updateTotalPrice(updatedCartItems);
+    const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
+    if (selectedItemIndex !== -1) {
+      // If the item exists, increase its quantity
+      updatedCartItems[selectedItemIndex].quantity += 1;
+      updatedCartItems[selectedItemIndex].totalItemPrice = updatedCartItems[selectedItemIndex].price * updatedCartItems[selectedItemIndex].quantity;
     }
+    setCartItemsState(updatedCartItems);
+    updateTotalPrice(updatedCartItems);
   };
 
-  const reduceQuantity = (itemIndex) => {
+  const reduceQuantity = (itemId) => {
     const updatedCartItems = [...cartItemsState];
-    const selectedItem = updatedCartItems[itemIndex];
-    if (selectedItem && selectedItem.quantity > 1) {
-      selectedItem.quantity -= 1;
-      selectedItem.totalItemPrice = selectedItem.price * selectedItem.quantity;
-      setCartItemsState(updatedCartItems);
-      updateTotalPrice(updatedCartItems);
+    const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
+    if (selectedItemIndex !== -1) {
+      // If the item exists and quantity is greater than 1, decrease its quantity
+      if (updatedCartItems[selectedItemIndex].quantity > 1) {
+        updatedCartItems[selectedItemIndex].quantity -= 1;
+        updatedCartItems[selectedItemIndex].totalItemPrice = updatedCartItems[selectedItemIndex].price * updatedCartItems[selectedItemIndex].quantity;
+      }
     }
+    setCartItemsState(updatedCartItems);
+    updateTotalPrice(updatedCartItems);
   };
 
   const updateTotalPrice = (updatedCartItems) => {
@@ -42,12 +46,6 @@ const CartView = ({ route, navigation }) => {
         data={cartItems}
         keyExtractor={(item, index) => index.toString()}
         //keyExtractor={(item) => item.id.toString()}
-        // renderItem={({ item }) => (
-        //   <View style={styles.itemContainer}>
-        //     <Text style={styles.itemName}>{item.name}</Text>
-        //     <Text style={styles.itemPrice}>{item.price} AUD</Text>
-        //   </View>
-        // )}
         renderItem={({ item, index }) => (
           <View style={styles.itemContainer}>
             <View style={styles.column1}>
@@ -74,6 +72,7 @@ const CartView = ({ route, navigation }) => {
       <View style={styles.footer}>
         <Text style={styles.totalItem}>Total Items: {totalItems}</Text>
         <Text style={styles.totalPrice}>Total Price: AU$ {totalPrice.toFixed(2)}</Text>
+        {/* <Text>Total Price: {totalPriceState}</Text> */}
         <TouchableOpacity style={styles.checkoutButton} onPress={() => navigation.navigate('Checkout')}>
           <Text style={styles.checkoutButtonText}>Checkout</Text>
         </TouchableOpacity>

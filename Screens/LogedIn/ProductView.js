@@ -35,7 +35,7 @@ const ProductView = ({ route, navigation }) => {
         <Image source={imagePath ? imagePath : { uri: wigDB.image }} style={styles.image} resizeMode="cover" />
         <View style={styles.detailsContainer}>
           <Text style={styles.name}>{wigDB.name}</Text>
-          <Text style={styles.price}>{wigDB.price}</Text>
+          <Text style={styles.price}>AU$ {wigDB.price}</Text>
           <TextInput
             style={styles.quantityInput}
             placeholder="Quantity"

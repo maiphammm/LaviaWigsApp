@@ -7,6 +7,7 @@ const CartView = ({ route, navigation }) => {
   const [cartItemsState, setCartItemsState] = useState(cartItems);
   const [totalPriceState, setTotalPriceState] = useState(totalPrice);
 
+  //increase items by quantity
   const increaseQuantity = (itemId) => {
     const updatedCartItems = [...cartItemsState];
     const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
@@ -19,6 +20,8 @@ const CartView = ({ route, navigation }) => {
     updateTotalPrice(updatedCartItems);
   };
 
+
+  //reduce items by quantity
   const reduceQuantity = (itemId) => {
     const updatedCartItems = [...cartItemsState];
     const selectedItemIndex = updatedCartItems.findIndex(item => item.id === itemId);
@@ -33,6 +36,13 @@ const CartView = ({ route, navigation }) => {
     updateTotalPrice(updatedCartItems);
   };
 
+  //remove item from cart
+  const removeItem = (itemId) => {
+    const updatedCartItems = cartItemsState.filter(item => item.id !== itemId);
+    setCartItemsState(updatedCartItems);
+  };
+
+  //update total price
   const updateTotalPrice = (updatedCartItems) => {
     const newTotalPrice = updatedCartItems.reduce((total, item) => total + item.totalItemPrice, 0);
     setTotalPriceState(newTotalPrice);
@@ -61,6 +71,9 @@ const CartView = ({ route, navigation }) => {
               <Text>{item.quantity}</Text>
               <TouchableOpacity style={styles.quantityButton} onPress={() => reduceQuantity(index)}>
                 <Text>-</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(item.id)}>
+                <Text style={styles.removeButtonText}>X</Text>
               </TouchableOpacity>
             </View>
             
@@ -168,6 +181,16 @@ const styles = StyleSheet.create({
     padding: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+  },
+  removeButton: {
+    backgroundColor: '#AF005F',
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  removeButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

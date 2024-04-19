@@ -8,6 +8,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { DbContext } from '../../contexts/DbContext'
 
 import { ProfileImage } from '../../Components/ProfileImage'
+import {useNavigation} from "@react-navigation/native";
 
 export function Profile( props ) {
   
@@ -21,6 +22,7 @@ export function Profile( props ) {
 
   const Auth = useContext( AuthContext )
   const db = useContext( DbContext )
+  const navigation = useNavigation()
 
   const getUserData = async () => {
     const docRef = doc( db, "users", `${user.uid}` )
@@ -56,13 +58,15 @@ export function Profile( props ) {
   else {
     return(
       <View style={ styles.container }>
-        <ProfileImage img={profile.profileImg} custom={profile.hasImage} />
+        <ProfileImage />
         <Text style={ styles.userDisplay }>Welcome back {profile.name}</Text>
         <Text>{profile.email}</Text>
         <Pressable 
           style={styles.button} 
           onPress={ () => {
-            signOut( getAuth() ).then(()=> {})
+            signOut( getAuth() ).then(()=> {
+              navigation.navigate('Login')
+            })
           }
         }>
           <Text style={ styles.button.text }>Sign out</Text>

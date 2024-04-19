@@ -1,11 +1,23 @@
 import { useState, useContext } from 'react';
 import { CardField, confirmPayment } from '@stripe/stripe-react-native';
-import { SafeAreaView, StyleSheet, View, Image, Text, ImageBackground, ActivityIndicator, Modal } from 'react-native';
+import {
+    SafeAreaView,
+    StyleSheet,
+    View,
+    Image,
+    Text,
+    ImageBackground,
+    ActivityIndicator,
+    Modal,
+    Alert
+} from 'react-native';
 import creatPaymentIntent from './apis';
 import ButtonComp from './ButtonCamp';
 import bgimage from "../../../assets/wig_assets/balayage_wig.png"
+import {useNavigation} from "@react-navigation/native";
 
 const PaymentScreen = ({ route }) => {
+    const navigation = useNavigation()
     const { totalPrice } = route.params || 0;
     const [cardInfo, setCardInfo] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -29,21 +41,28 @@ const PaymentScreen = ({ route }) => {
   
       try {
         const res = await creatPaymentIntent(apiData);
-        console.log("Payment intent created successfully:", res);
+        // console.log("Payment intent created successfully:", res);
   
         if (res?.data?.paymentIntent) {
           const confirmPaymentIntent = await confirmPayment(res?.data?.paymentIntent, { paymentMethodType: 'Card' });
-          console.log("Confirm Payment Intent response:", confirmPaymentIntent);
+          // console.log("Confirm Payment Intent response:", confirmPaymentIntent);
   
           if (confirmPaymentIntent.paymentIntent && confirmPaymentIntent.paymentIntent.status === 'Succeeded') {
-            alert("Payment successful!");
+            Alert.alert("Payment successful!", 'Payment successful!', [
+                {
+                    text: "OK",
+                    onPress: () => {
+                        navigation.navigate('HomeScreen')
+                    }
+                }
+            ]);
           } else {
             const paymentError = confirmPaymentIntent.error?.message || "Unknown error occurred during payment.";
             alert("Payment failed: " + paymentError);
           }
         }
       } catch (error) {
-        console.log("Error during payment intent:", error);
+        // console.log("Error during payment intent:", error);
         const errorMessage = error.response?.data?.error?.message || "An unknown error occurred during payment.";
         alert("Error: " + errorMessage);
       } finally {

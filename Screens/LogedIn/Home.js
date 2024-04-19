@@ -27,7 +27,7 @@ const Home = () => {
 
     useEffect(() => {
         try {
-            // Simulate fetching data from JSON file
+            // Simulate fetching data from JSON file xxx
             setPost(wigDB.db);
         } catch (error) {
             console.error('Error setting data:', error);

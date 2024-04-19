@@ -57,31 +57,87 @@
             
         },
         {
-            "id": "W5",
-            "name": "Test Natural black wig",
-            "price": "900",
-            "description": "50cm 200% density, hand-tied monofilament cap, 100% remy hair - finest human hair ",
+            "id": "T1",
+            "name": "Deluxe chocolate brown topper",
+            "price": "650",
+            "description": "Deluxe chocolate brown curly silk base real human hair Topper, free parting, best for larger area of hair loss",
             "cap": "Cap: 5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
             "length": "Length: 20 inches - 50cm",
             "weight": "Weight: 200g",
             "density": "Density: 200%",
             "handmade": "Handmade: yes",
             "quantity": "10",
-            "image": "natural_black_wig.png"
+            "image": "chocolate_brown_topper.png"
             
         },
         {
-            "id": "W6",
-            "name": "Last Natural black wig",
-            "price": "900",
-            "description": "50cm 200% density, hand-tied monofilament cap, 100% remy hair - finest human hair ",
+            "id": "T2",
+            "name": "Auburn deluxe topper",
+            "price": "700",
+            "description": "Lavia, deluxe medium high density large monofilament silk based real human hair Topper with fringe, free parting, best solution for hair thinning",
             "cap": "Cap: 5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
             "length": "Length: 20 inches - 50cm",
             "weight": "Weight: 200g",
             "density": "Density: 200%",
             "handmade": "Handmade: yes",
             "quantity": "10",
-            "image": "natural_black_wig.png"
+            "image": "auburn_topper.png"
+            
+        },
+	    {
+            "id": "T3",
+            "name": "Half head topper",
+            "price": "830",
+            "description": "Natural black human hair silk based deep wavy curl Hair Topper",
+            "cap": "Cap: 5 x 5 inches (12 X 12 cm) free parting (you can part anywhere) - hand-tied monofilament cap.",
+            "length": "Length: 20 inches - 50cm",
+            "weight": "Weight: 150g",
+            "density": "Density: 200%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "half_head_topper.png"
+            
+        },
+	    {
+            "id": "A1",
+            "name": "Hime Fringe Style Hair bangs",
+            "price": "69",
+            "description": "Real hair fringe clips, dye and heat tools OK - Best for effortless changing hair styles",
+            "cap": "no cap",
+            "length": "Medium",
+            "weight": "Weight: 20g",
+            "density": "Density: 100%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "fringe.png"
+            
+        },
+	    {
+            "id": "A2",
+            "name": "Versatile hair bun",
+            "price": "79",
+            "description": "The same hair bun style looks totally different based on the way you style it. Best for effortless changing hair styles",
+            "cap": "no cap",
+            "length": "Medium",
+            "weight": "Weight: 10g",
+            "density": "Density: 100%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "bun.png"
+            
+        },
+        {
+            "id": "A3",
+            "name": "Versatile hair bun",
+            "price": "79",
+            "description": "The same hair bun style looks totally different based on the way you style it. Best for effortless changing hair styles",
+            "cap": "no cap",
+            "length": "Medium",
+            "weight": "Weight: 10g",
+            "density": "Density: 100%",
+            "handmade": "Handmade: yes",
+            "quantity": "10",
+            "image": "bun.png"
             
         }
     ]

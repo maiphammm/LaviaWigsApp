@@ -1,16 +1,13 @@
-// ProductView.js
-
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import { CartContext } from '../../contexts/CartContext';
 
 const ProductView = ({ route, navigation }) => {
   const { wigDB, imagePath } = route.params;
-
+  const { addItemToCart, updateTotalPriceAndItems } = useContext(CartContext);
+  
   const [quantity, setQuantity] = useState(1);
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
 
   const handleQuantityChange = (text) => {
     const newQuantity = parseInt(text) || 1;
@@ -19,11 +16,9 @@ const ProductView = ({ route, navigation }) => {
 
   const handleAddToCart = () => {
     const newItem = { ...wigDB, quantity, totalItemPrice: wigDB.price * quantity };
-    const newTotalPrice = totalPrice + newItem.totalItemPrice; // Calculate new total price
-    setCartItems([...cartItems, newItem]);
-    setTotalPrice(newTotalPrice); // Update total price
-    setTotalItems(totalItems + quantity);
-    navigation.navigate('Cart', { cartItems: [...cartItems, newItem], totalItems: totalItems + quantity, totalPrice: newTotalPrice });
+    addItemToCart(newItem);
+    updateTotalPriceAndItems();
+    navigation.navigate('Cart');
   };
 
   return (
@@ -47,11 +42,12 @@ const ProductView = ({ route, navigation }) => {
             <Text style={styles.addToCartButtonText}>Add to Cart</Text>
           </TouchableOpacity>
           <ScrollView style={styles.details}>
-            <Text style={styles.text}>{wigDB.cap}</Text>
-            <Text style={styles.text}>{wigDB.length}</Text>
-            <Text style={styles.text}>{wigDB.weight}</Text>
-            <Text style={styles.text}>{wigDB.density}</Text>
-            <Text style={styles.text}>{wigDB.handmade}</Text>
+            <Text style={styles.text}>Description: {wigDB.description}</Text>
+            <Text style={styles.text}>Cap: {wigDB.cap}</Text>
+            <Text style={styles.text}>Length: {wigDB.length}</Text>
+            <Text style={styles.text}>Weight: {wigDB.weight}</Text>
+            <Text style={styles.text}>Density: {wigDB.density}</Text>
+            <Text style={styles.text}>Handmade: {wigDB.handmade}</Text>
           </ScrollView>
         </View>
       </View>

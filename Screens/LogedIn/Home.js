@@ -9,14 +9,31 @@ const Home = () => {
   const navigation = useNavigation();
   const [searchInput, setSearchInput] = useState('');
   const [post, setPost] = useState([]);
+  const [filteredPost, setFilteredPost] = useState([]);
 
   useEffect(() => {
     try {
+      // Simulate fetching data from JSON file
       setPost(wigDB.db);
+      setFilteredPost(wigDB.db); // Initialize filteredPost with the full data
     } catch (error) {
       console.error('Error setting data:', error);
     }
   }, []);
+  
+
+  // Function to filter post based on searchInput
+  const handleSearch = () => {
+    const filteredData = post.filter(item =>
+      item.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setFilteredPost(filteredData);
+  };
+
+  // Call handleSearch whenever searchInput changes
+  useEffect(() => {
+    handleSearch();
+  }, [searchInput]);
 
 
   
@@ -25,11 +42,16 @@ const Home = () => {
     "natural_black_wig.png": require('../../assets/wig_assets/natural_black_wig.png'),
     "tea_bob_wig.png": require('../../assets/wig_assets/tea_bob_wig.png'),
     "red_wig.png": require('../../assets/wig_assets/red_wig.png'),
+    "auburn_topper.png": require('../../assets/wig_assets/auburn_topper.png'),
+    "bun.png": require('../../assets/wig_assets/bun.png'),
+    "chocolate_brown_topper.png": require('../../assets/wig_assets/chocolate_brown_topper.png'),
+    "fringe.png": require('../../assets/wig_assets/fringe.png'),
+    "half_head_topper.png": require('../../assets/wig_assets/half_head_topper.png'),
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.Heading}>LaviaWigs</Text>
+      <Text style={styles.Heading}>Lavia Wigs</Text>
       <TextInput
         style={styles.input}
         placeholder="Search..."
@@ -38,11 +60,11 @@ const Home = () => {
         onChangeText={(val) => setSearchInput(val)}
       />
       <View style={styles.mainPostView}>
-        {post.length < 1 ?
+        {filteredPost.length < 1 ?
           <ActivityIndicator size="large" color="#AF005F" />
           :
           <FlatList
-            data={post}
+            data={filteredPost}
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={({ item, index }) => {
               //console.log("Navigating to ProductView with params:", navigation)

@@ -18,6 +18,7 @@ import ProductView from './Screens/LogedIn/ProductView';
 import { AuthContext } from './contexts/AuthContext'
 import { DbContext } from './contexts/DbContext'
 import { StorageContext } from './contexts/StorageContext'
+import { CartProvider } from './contexts/CartContext';
 //Firebase
 import { 
   getAuth, 
@@ -88,11 +89,11 @@ console.log("push:" , Publishable_key)
       <AuthContext.Provider value={FBauth}>
         <DbContext.Provider value={FBdb}>
           <StorageContext.Provider value={FBstorage}>
-            <NavigationContainer>
+          <CartProvider>
+          <NavigationContainer>
             <StripeProvider
               publishableKey={Publishable_key}
               merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
-
             >
               <Tab.Navigator initialRouteName="Home"
                 screenOptions={({ route }) => ({
@@ -103,8 +104,8 @@ console.log("push:" , Publishable_key)
                       iconName = focused
                         ? 'storefront'
                         : 'storefront-outline';
-                    } else if (route.name === 'Product') {
-                      iconName = focused ? 'sparkles' : 'sparkles-outline';
+                    // } else if (route.name === 'Product') {
+                    //   iconName = focused ? 'sparkles' : 'sparkles-outline';
                     } else if (route.name === 'Cart') {
                       iconName = focused? 'cart' : 'cart-outline';
                     }
@@ -119,19 +120,17 @@ console.log("push:" , Publishable_key)
                 })}
               >
                 <Tab.Screen name="Home" options={{ headerShown: false }}>
-                  {(props) => <Home />}
+                      {(props) => (
+                        <Stack.Navigator screenOptions={{ headerShown: false }}>
+                          <Stack.Screen name="HomeScreen" component={Home} />
+                          <Stack.Screen name="Product" component={ProductView} />
+                          <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+                        </Stack.Navigator>
+                      )}
                 </Tab.Screen>
-                {/* <Tab.Screen name="Login" options={{ headerShown: false }}>
-                  {(props) => <LoginScreen handler={Login} />}
-                </Tab.Screen> */}
-                {/* <Tab.Screen name="Product" options={{ headerShown: false }}>
-                  {(props) => <Product />}
-                </Tab.Screen> */}
-                <Tab.Screen name="Product" component={ProductView} options={{ headerShown: false }} />
-             
-                
+                {/* <Tab.Screen name="Product" component={ProductView} options={{ headerShown: false }} />
                 <Tab.Screen name="PaymentScreen" component={PaymentScreen} options={{ headerShown: false }} />
-               
+                */}
                 <Tab.Screen name="Cart" component={CartView} options={{ headerShown: false }}>
                   {/* {(props) => <Cart />} */}
                 </Tab.Screen>
@@ -141,6 +140,8 @@ console.log("push:" , Publishable_key)
               </Tab.Navigator>
               </StripeProvider>
             </NavigationContainer>
+          </CartProvider>
+            
           </StorageContext.Provider>
         </DbContext.Provider>
       </AuthContext.Provider>
